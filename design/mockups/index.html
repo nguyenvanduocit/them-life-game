@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subject to Change: UI mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Subject to Change: UI mockups. Throwaway design artifacts, not product code. */
+:root {
+  --ink: #10163f;
+  --muted: #474f85;
+  --carbon: #2433c9;
+  --carbon-line: rgba(36, 51, 201, 0.35);
+  --paper: #ffffff;
+  --white-copy: #f4f5f8;
+  --canary: #f8e26a;
+  --pink: #f6b3c3;
+  --stamp: #e4321f;
+  --good: #1b7a43;
+  --desk: #c7cbda;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font: 400 16px/1.35 "Atkinson Hyperlegible", "Be Vietnam Pro", system-ui, sans-serif;
+}
+h1, h2, h3, p { margin: 0; }
+.disp { font-family: Archivo, "Be Vietnam Pro", sans-serif; font-stretch: 112%; font-weight: 800; letter-spacing: -0.01em; }
+
+/* ---------- board (gallery chrome) ---------- */
+.board { max-width: 1500px; margin: 0 auto; padding: 48px 32px 96px; }
+.board-hd { max-width: 760px; margin-bottom: 36px; }
+.board-hd h1 { font: 900 56px/0.95 Archivo; font-stretch: 125%; letter-spacing: -0.02em; margin-bottom: 14px; }
+.board-hd p { font-size: 18px; margin-bottom: 10px; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.legend span { padding: 8px 12px; border: 2px solid var(--carbon); font-weight: 700; font-size: 14px; }
+.legend .w { background: var(--white-copy); } .legend .c { background: var(--canary); } .legend .p { background: var(--pink); }
+.jump { display: flex; gap: 10px; flex-wrap: wrap; margin: 28px 0 8px; }
+.jump a { color: var(--carbon); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.flow { margin: 64px 0 28px; }
+.flow h2 { font: 900 34px/1 Archivo; font-stretch: 118%; }
+.flow p { margin-top: 8px; max-width: 720px; font-size: 17px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 60px 24px; justify-items: center; }
+.shot { margin: 0; width: 410px; }
+.shot figcaption { margin-bottom: 16px; font-size: 14.5px; line-height: 1.3; min-height: 84px; }
+.shot figcaption b { display: block; font: 800 18px/1.2 Archivo; font-stretch: 112%; margin-bottom: 2px; }
+
+/* ---------- phone ---------- */
+.phone {
+  width: 390px; height: 844px; border-radius: 46px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; background: var(--sheet, var(--white-copy));
+  box-shadow: 0 0 0 10px #0e1230, 0 28px 50px rgba(16, 22, 63, 0.3);
+}
+.copy-white { --sheet: var(--white-copy); } .copy-canary { --sheet: var(--canary); } .copy-pink { --sheet: var(--pink); }
+.sb { height: 48px; flex: none; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 30px 6px; font-weight: 700; font-size: 15px; }
+.batt { width: 26px; height: 12px; border: 2px solid var(--ink); border-radius: 4px; position: relative; }
+.batt::after { content: ""; position: absolute; inset: 1px 6px 1px 1px; background: var(--ink); }
+.body { flex: 1; min-height: 0; padding: 0 18px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.hd { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0 2px; }
+.hd h1 { font: 800 28px/1.05 Archivo; font-stretch: 114%; letter-spacing: -0.01em; }
+.hd small { display: block; font: 400 14px/1.2 "Atkinson Hyperlegible"; color: var(--muted); margin-top: 2px; letter-spacing: 0; }
+.home-ind { position: absolute; bottom: 8px; left: 50%; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); opacity: 0.85; }
+
+/* ---------- icons ---------- */
+.ic { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ic.lg { width: 28px; height: 28px; }
+.ic-btn { width: 44px; height: 44px; flex: none; border-radius: 10px; border: 2px solid var(--carbon); background: var(--paper); color: var(--carbon); display: grid; place-items: center; position: relative; }
+.badge { position: absolute; top: -7px; right: -7px; min-width: 22px; height: 22px; border-radius: 11px; background: var(--stamp); color: #fff; font: 800 13px/22px Archivo; text-align: center; padding: 0 5px; }
+
+/* ---------- forms ---------- */
+.form { background: var(--paper); border: 2px solid var(--carbon); border-radius: 6px; padding: 14px; }
+.form.lift { box-shadow: 5px 5px 0 var(--carbon); }
+.form.canary { background: var(--canary); } .form.pink { background: var(--pink); }
+.fld { border-bottom: 1.5px solid var(--carbon); padding: 6px 0 5px; }
+.fld small { display: block; font-size: 13px; color: var(--muted); }
+.fld b { font-weight: 700; font-size: 17px; }
+.fld.in { border: 2px solid var(--carbon); border-radius: 6px; padding: 8px 10px; background: var(--paper); text-align: center; }
+.fld.in b { color: #8a90b8; font-weight: 700; }
+.nar { font-size: 19px; line-height: 1.42; }
+.cap { font-size: 14px; color: var(--muted); }
+.fine { font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+.center { text-align: center; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.stat { background: var(--paper); border: 2px solid var(--carbon); border-radius: 6px; padding: 6px 4px 5px; text-align: center; color: var(--carbon); }
+.stat b { display: block; font: 800 20px/1.1 Archivo; color: var(--ink); }
+.stat small { display: block; font-size: 12.5px; color: var(--muted); }
+.d { font: 800 13px/1 Archivo; }
+.d.up { color: var(--good); } .d.dn { color: var(--stamp); }
+
+.ticks { display: flex; gap: 3px; }
+.ticks i { flex: 1; height: 9px; border: 1.5px solid var(--carbon); background: rgba(36, 51, 201, 0.12); }
+.ticks i.on { background: var(--carbon); }
+.prog { height: 12px; border: 2px solid var(--carbon); background: var(--paper); }
+.prog i { display: block; height: 100%; background: var(--carbon); width: var(--w, 50%); }
+
+/* ---------- buttons ---------- */
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 18px; width: 100%;
+  border: 2px solid var(--carbon); border-radius: 8px; background: var(--carbon); color: #fff; font: 800 18px/1 Archivo; font-stretch: 112%; }
+.btn.ghost { background: var(--paper); color: var(--carbon); }
+.btn.danger { background: var(--paper); color: var(--stamp); border-color: var(--stamp); }
+.btn.sm { min-height: 44px; font-size: 15px; width: auto; font-stretch: 100%; padding: 0 10px; line-height: 1.1; white-space: nowrap; }
+.btn.off { opacity: 0.45; }
+.btn.stamp { position: relative; margin-top: 12px; }
+.btn.stamp::before { content: ""; position: absolute; top: -13px; left: 50%; width: 56px; height: 13px; margin-left: -28px; background: var(--carbon); border-radius: 8px 8px 0 0; }
+.link { color: var(--carbon); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+.opt { display: flex; gap: 12px; align-items: flex-start; background: var(--paper); border: 2px solid var(--carbon); border-radius: 8px; padding: 12px; font-weight: 700; font-size: 16.5px; line-height: 1.25; min-height: 56px; }
+.opt .box { flex: none; width: 22px; height: 22px; border: 2px solid var(--carbon); border-radius: 3px; margin-top: 1px; display: grid; place-items: center; color: #fff; }
+.opt.sel { background: #e7e9fb; box-shadow: 3px 3px 0 var(--carbon); }
+.opt.sel .box { background: var(--carbon); }
+.opt .box .ic { width: 16px; height: 16px; stroke-width: 3.2; }
+.opt .lean { margin-left: auto; font: 800 14px/1 Archivo; color: var(--carbon); white-space: nowrap; }
+.opt.radio .box { border-radius: 50%; }
+
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1.5px solid var(--carbon); border-radius: 999px; background: var(--paper); font-weight: 700; font-size: 13.5px; }
+.chip.on { background: var(--carbon); color: #fff; }
+.chip.red { border-color: var(--stamp); color: var(--stamp); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.stamp-mark { display: inline-block; font: 900 26px/1 Archivo; font-stretch: 125%; color: var(--stamp); border: 4px solid var(--stamp); border-radius: 6px; padding: 6px 12px; transform: rotate(-7deg); mix-blend-mode: multiply; filter: url(#rough); opacity: 0.93; text-align: center; }
+.stamp-mark.sm { font-size: 17px; border-width: 3px; padding: 4px 8px; }
+.stamp-mark.xl { font-size: 34px; padding: 8px 14px; }
+@keyframes slam { 0% { transform: rotate(-7deg) scale(2.3); opacity: 0; } 55% { transform: rotate(-7deg) scale(0.93); opacity: 1; } 100% { transform: rotate(-7deg) scale(1); opacity: 0.93; } }
+.slam { animation: slam 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s both; }
+@media (prefers-reduced-motion: reduce) { .slam { animation: none; } }
+
+.sw { flex: none; width: 50px; height: 30px; border: 2px solid var(--carbon); border-radius: 999px; background: var(--paper); position: relative; }
+.sw::after { content: ""; position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--carbon); }
+.sw.on { background: var(--carbon); } .sw.on::after { left: 23px; background: #fff; }
+
+.rng { height: 10px; border: 2px solid var(--carbon); background: var(--paper); position: relative; margin: 14px 0 6px; }
+.rng i { position: absolute; inset: 0 auto 0 0; width: var(--v); background: var(--carbon); }
+.rng::after { content: ""; position: absolute; left: var(--v); top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; background: var(--paper); border: 3px solid var(--carbon); border-radius: 50%; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 2px solid var(--carbon); border-radius: 8px; overflow: hidden; background: var(--paper); }
+.seg span { padding: 10px 4px; text-align: center; font-weight: 700; font-size: 14.5px; border-left: 2px solid var(--carbon); }
+.seg span:first-child { border-left: 0; } .seg span.on { background: var(--carbon); color: #fff; }
+
+.row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1.5px solid var(--carbon-line); }
+.row:last-child { border-bottom: 0; }
+.row .grow { flex: 1; min-width: 0; }
+.row b { display: block; font-size: 16.5px; }
+.row small { display: block; font-size: 14px; color: var(--muted); }
+.row .when { flex: none; width: 48px; font: 800 14px/1.1 Archivo; color: var(--carbon); }
+
+.nav { margin-top: auto; flex: none; margin-left: -18px; margin-right: -18px; display: grid; grid-template-columns: repeat(5, 1fr); background: var(--paper); border-top: 2px solid var(--carbon); padding: 8px 4px 26px; }
+.nav a { display: flex; flex-direction: column; align-items: center; gap: 2px; font-weight: 700; font-size: 12.5px; color: var(--muted); }
+.nav a.on { color: var(--carbon); }
+.nav a.on .ic { stroke-width: 2.8; }
+
+.scrim { position: absolute; inset: 0; background: rgba(16, 22, 63, 0.6); }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--white-copy); border-top: 3px solid var(--carbon); border-radius: 20px 20px 0 0; padding: 14px 18px 32px; display: flex; flex-direction: column; gap: 10px; }
+.sheet .grab { width: 44px; height: 5px; border-radius: 3px; background: var(--carbon); opacity: 0.4; margin: 0 auto 4px; }
+
+.av { width: 96px; height: 115px; flex: none; }
+.av.sm { width: 44px; height: 53px; } .av.xl { width: 190px; height: 228px; }
+.pg { width: 56px; height: 56px; flex: none; } .pg.xl { width: 170px; height: 170px; } .pg.md { width: 84px; height: 84px; }
+.jev { display: flex; align-items: flex-end; gap: 6px; }
+.bubble { background: var(--paper); border: 2px solid var(--carbon); border-radius: 14px 14px 14px 3px; padding: 9px 12px; font-weight: 700; font-size: 15.5px; line-height: 1.25; }
+.initial { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--carbon); background: var(--paper); display: grid; place-items: center; font: 800 18px Archivo; color: var(--carbon); }
+
+/* share card (9:16) */
+.card916 { width: 180px; height: 320px; background: var(--canary); border: 3px solid var(--carbon); box-shadow: 6px 6px 0 var(--carbon); padding: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; line-height: 1.25; position: relative; }
+.card916 h3 { font: 900 17px/1 Archivo; font-stretch: 118%; }
+.card916 .cause { background: var(--paper); border: 1.5px solid var(--carbon); padding: 6px; font-weight: 700; }
+
+/* lock screen */
+.lock { background: linear-gradient(170deg, #1a2490 0%, #10163f 70%); color: #fff; }
+.lock .time { font: 800 84px/1 Archivo; font-stretch: 100%; text-align: center; margin-top: 40px; letter-spacing: -0.03em; }
+.lock .date { text-align: center; font-weight: 700; opacity: 0.85; margin-bottom: 18px; }
+.notif { background: rgba(244, 245, 248, 0.94); color: var(--ink); border-radius: 18px; padding: 12px 14px; display: flex; gap: 10px; }
+.notif .app { width: 38px; height: 38px; border-radius: 9px; background: var(--canary); border: 2px solid var(--carbon); display: grid; place-items: center; flex: none; }
+.notif b { display: block; font-size: 15px; } .notif span { font-size: 14.5px; line-height: 1.3; display: block; }
+.notif em { font-style: normal; font-size: 12.5px; color: var(--muted); margin-left: auto; flex: none; }
+.lock .home-ind { background: #fff; }
+.lock .sb { color: #fff; } .lock .batt { border-color: #fff; } .lock .batt::after { background: #fff; }
+
+</style>
+</head>
+<body>
+
+<!-- shared defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 2 3 3 4 3s3-1 4-3"/><path d="M9 10h.01M15 10h.01"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6v2M12 16v2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 1.8 5 4.5"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M5 12v7h14v-7"/></symbol>
+  <symbol id="i-skull" viewBox="0 0 24 24"><path d="M12 3a8 8 0 0 0-8 8c0 3 1.5 4.5 3 5.5V20h10v-3.5c1.5-1 3-2.5 3-5.5a8 8 0 0 0-8-8z"/><circle cx="9" cy="11" r="1.4"/><circle cx="15" cy="11" r="1.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M20 8a8 8 0 1 0 1 6M20 3v5h-5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M4 18l5-5 4 4 3-3 4 4"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+
+  <!-- Jev, the pigeon clerk -->
+  <symbol id="pigeon" viewBox="0 0 120 120">
+    <path d="M24 70L4 92l24 2z" fill="#6f78a8" stroke="#10163f" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="58" cy="78" rx="38" ry="27" fill="#9aa3c7" stroke="#10163f" stroke-width="3"/>
+    <path d="M30 76c8-12 28-14 40-4-6 14-28 20-40 4z" fill="#6f78a8" stroke="#10163f" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="88" cy="48" r="19" fill="#9aa3c7" stroke="#10163f" stroke-width="3"/>
+    <ellipse cx="80" cy="62" rx="13" ry="9" fill="#3fae93" stroke="#10163f" stroke-width="2.5"/>
+    <path d="M105 46l13 5-13 6z" fill="#f2a33a" stroke="#10163f" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="94" cy="45" r="5" fill="#fff" stroke="#10163f" stroke-width="2"/>
+    <circle cx="95.5" cy="46.5" r="2.4" fill="#10163f"/>
+    <path d="M87 42h15" stroke="#10163f" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M74 60l10 22h-9z" fill="#2433c9" stroke="#10163f" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="66" y="84" width="22" height="16" rx="2" fill="#fff" stroke="#10163f" stroke-width="2.5"/>
+    <path d="M70 90h14M70 95h9" stroke="#10163f" stroke-width="2"/>
+    <path d="M48 104v12M64 105v11" stroke="#f2a33a" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Subject avatars (layered paperdoll stand-ins) -->
+  <symbol id="av-neutral" viewBox="0 0 100 120">
+    <path d="M16 120c0-27 15-42 34-42s34 15 34 42z" fill="var(--shirt)" stroke="#10163f" stroke-width="3"/>
+    <rect x="43" y="64" width="14" height="18" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <circle cx="50" cy="42" r="26" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <path d="M24 38c2-18 14-25 28-23 14 1 23 10 22 25-6-9-14-13-26-13-10 0-18 4-24 11z" fill="var(--hair)" stroke="#10163f" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="40" cy="47" r="3" fill="#10163f"/><circle cx="60" cy="47" r="3" fill="#10163f"/>
+    <path d="M42 59h16" stroke="#10163f" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="av-panic" viewBox="0 0 100 120">
+    <path d="M16 120c0-27 15-42 34-42s34 15 34 42z" fill="var(--shirt)" stroke="#10163f" stroke-width="3"/>
+    <rect x="43" y="64" width="14" height="18" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <circle cx="50" cy="42" r="26" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <path d="M24 38c2-18 14-25 28-23 14 1 23 10 22 25-6-9-14-13-26-13-10 0-18 4-24 11z" fill="var(--hair)" stroke="#10163f" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="40" cy="47" r="6" fill="#fff" stroke="#10163f" stroke-width="2.5"/><circle cx="60" cy="47" r="6" fill="#fff" stroke="#10163f" stroke-width="2.5"/>
+    <circle cx="40" cy="48" r="2" fill="#10163f"/><circle cx="60" cy="48" r="2" fill="#10163f"/>
+    <ellipse cx="50" cy="62" rx="6" ry="7" fill="#10163f"/>
+  </symbol>
+  <symbol id="av-dead" viewBox="0 0 100 120">
+    <path d="M16 120c0-27 15-42 34-42s34 15 34 42z" fill="var(--shirt)" stroke="#10163f" stroke-width="3"/>
+    <rect x="43" y="64" width="14" height="18" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <circle cx="50" cy="42" r="26" fill="var(--skin)" stroke="#10163f" stroke-width="3"/>
+    <path d="M24 38c2-18 14-25 28-23 14 1 23 10 22 25-6-9-14-13-26-13-10 0-18 4-24 11z" fill="var(--hair)" stroke="#10163f" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M35 42l10 10M45 42L35 52M55 42l10 10M65 42L55 52" stroke="#10163f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M42 62c4-3 12-3 16 0" stroke="#10163f" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<main class="board">
+  <header class="board-hd">
+    <h1>Subject to Change</h1>
+    <p>All 28 screens of the first release: first launch, quick mode, long mode, social, meta and system states. Design probe: throwaway mockups with the story's real copy, not product code.</p>
+    <p>Each screen's background is the color of a carbon copy sheet, and it tells you what kind of screen you are on.</p>
+    <div class="legend"><span class="w">White copy: desk, archive, settings</span><span class="c">Canary copy: quick mode</span><span class="p">Pink copy: your Subject, anything waiting on you</span></div>
+    <nav class="jump"><a href="#first">First launch</a><a href="#quick">Quick mode</a><a href="#long">Long mode</a><a href="#social">Colleagues</a><a href="#meta">Meta</a><a href="#system">System</a></nav>
+  </header>
+
+  <!-- ===================== FIRST LAUNCH ===================== -->
+  <section id="first">
+    <div class="flow"><h2>First launch</h2><p>Age gate, AI consent, then straight into a rolled case. No tutorial and no account before the first laugh.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>A1 Splash</b>Jev greets you while the app loads.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="align-items:center;justify-content:center;gap:18px;text-align:center">
+            <svg class="pg xl"><use href="#pigeon"/></svg>
+            <h1 style="font:900 46px/0.95 Archivo;font-stretch:125%;letter-spacing:-.02em">Subject<br>to Change</h1>
+            <p style="font-size:19px">Your mess. Your file.</p>
+            <div style="width:220px"><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><p class="fine" style="margin-top:8px">Filing your paperwork</p></div>
+          </div>
+          <i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>A2 Age gate</b>Plain and serious. Checks that the player is 18 or older.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:16px;padding-top:22px">
+            <h1 class="disp" style="font-size:32px;line-height:1.05">Before we open your file</h1>
+            <p class="nar" style="font-size:18px">This game has crude humor, dark jokes, death and bad decisions. You must be 18 or older to play.</p>
+            <div class="form"><p style="font-weight:700;margin-bottom:8px">Your birth date</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px">
+                <div class="fld in"><small>Day</small><b>DD</b></div><div class="fld in"><small>Month</small><b>MM</b></div><div class="fld in"><small>Year</small><b>YYYY</b></div></div></div>
+            <p class="fine">We use your birth date only to check that you are 18 or older.</p>
+            <div style="margin-top:auto;padding-bottom:36px"><div class="btn off">Continue</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>A3 AI consent</b>States what is sent, what is not, and who receives it. Required before the first AI-written incident.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:14px;padding-top:22px">
+            <h1 class="disp" style="font-size:32px;line-height:1.05">AI writes your Subject's file</h1>
+            <div class="form">
+              <div class="row"><svg class="ic"><use href="#i-check"/></svg><div class="grow"><b>What is sent</b><small>Your Subject's name, stats and life log.</small></div></div>
+              <div class="row"><svg class="ic"><use href="#i-x"/></svg><div class="grow"><b>What is not sent</b><small>Your name, email or device ID.</small></div></div>
+              <div class="row"><svg class="ic"><use href="#i-users"/></svg><div class="grow"><b>Who receives it</b><small>Third-party AI providers that write and check each incident.</small></div></div>
+            </div>
+            <span class="link">Read the full list of providers</span>
+            <div style="margin-top:auto;padding-bottom:36px;display:grid;gap:10px"><div class="btn">Allow AI</div><div class="btn ghost">Not now</div><p class="fine center">Without AI you play a small set of saved incidents.</p></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== QUICK MODE ===================== -->
+  <section id="quick">
+    <div class="flow"><h2>Quick mode</h2><p>Home to a finished life in about four minutes. Every outcome gets a red stamp. The autopsy report is the share card.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>B1 Desk (home)</b>Two doors: a quick case or your Subject. Rank and the current quarterly review sit below.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Your desk<small>Good morning, Intern.</small></h1><span class="ic-btn"><svg class="ic"><use href="#i-bell"/></svg><span class="badge">3</span></span></div>
+            <div class="form canary lift" style="display:grid;gap:10px">
+              <div><h2 class="disp" style="font-size:24px">Quick case</h2><p>A whole life in about four minutes.</p></div>
+              <div class="btn stamp">Open a case</div>
+            </div>
+            <div class="form pink lift" style="display:grid;gap:10px;margin-top:6px">
+              <div style="display:flex;gap:12px;align-items:center"><svg class="av sm" style="--skin:#e9b98f;--shirt:#2433c9;--hair:#10163f"><use href="#av-neutral"/></svg>
+                <div><h2 class="disp" style="font-size:21px">Gary Pembrook, 41</h2><p class="cap" style="color:var(--ink)">In jail. Again.</p></div></div>
+              <div class="chips"><span class="chip red"><svg class="ic" style="width:16px;height:16px"><use href="#i-clock"/></svg>Decision due in 1h 42m</span><span class="chip">3 incidents overnight</span></div>
+              <div class="btn sm" style="width:100%">Review decision</div>
+            </div>
+            <div class="form" style="display:grid;gap:8px">
+              <div style="display:flex;justify-content:space-between"><b>Associate</b><span class="cap">Notoriety 1,240 of 2,000</span></div>
+              <div class="prog" style="--w:62%"><i></i></div>
+            </div>
+            <div class="row" style="padding:6px 2px"><div class="grow"><b>Audit Season</b><small>Quarterly review, 12 days left</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+            <nav class="nav"><a class="on"><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B2 Intake (the roll)</b>A random Subject in one tap. Reroll is free twice, no tutorial.</figcaption>
+        <div class="phone copy-canary">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>New case file</h1><span class="ic-btn"><svg class="ic"><use href="#i-x"/></svg></span></div>
+            <div class="form lift" style="display:grid;gap:4px">
+              <div style="display:flex;gap:14px;align-items:center"><svg class="av" style="--skin:#e9b98f;--shirt:#2433c9;--hair:#10163f"><use href="#av-neutral"/></svg>
+                <div style="flex:1"><div class="fld"><small>Subject</small><b>Gary Pembrook</b></div><div class="fld"><small>Age</small><b>0, newborn</b></div></div></div>
+              <div class="fld"><small>Born</small><b>Lower Mildew, to a mother with a podcast</b></div>
+              <div style="padding-top:8px"><small class="cap">Quirks</small><div class="chips" style="margin-top:6px"><span class="chip">Confident around geese</span><span class="chip">Allergic to Mondays</span><span class="chip">Owns one good suit</span></div></div>
+            </div>
+            <p class="fine center">A life is 13 incidents. Each one is stamped and final.</p>
+            <div style="margin-top:auto;padding-bottom:36px;display:grid;gap:10px"><div class="btn stamp">Open this case</div><div class="btn ghost sm" style="width:100%"><svg class="ic"><use href="#i-redo"/></svg>Reroll, 2 free</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B3 Incident (core game)</b>One narration, four choices, four numbers. Progress is the 13 ticks, not a timer.</figcaption>
+        <div class="phone copy-canary">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div style="display:flex;align-items:center;gap:12px"><div style="flex:1"><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="cap" style="margin-top:4px;color:var(--ink)">Incident 7 of 13, age 34</p></div><span class="ic-btn" style="width:40px;height:40px"><svg class="ic"><use href="#i-pause"/></svg></span></div>
+            <div class="stats">
+              <div class="stat"><svg class="ic"><use href="#i-heart"/></svg><b>64</b><small>Health</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-smile"/></svg><b>38</b><small>Happiness</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-coin"/></svg><b>$212</b><small>Money</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-star"/></svg><b>21</b><small>Notoriety</small></div>
+            </div>
+            <div class="form"><div class="fld"><small>Incident 7 · Gary Pembrook</small></div>
+              <p class="nar" style="margin-top:10px">Mr. Dunmore says rent is due today. You have $212 and a very confident hot dog.</p></div>
+            <div style="display:grid;gap:8px">
+              <div class="opt"><span class="box"></span>Pay with the hot dog.</div>
+              <div class="opt"><span class="box"></span>Pay $212 and eat ramen like a coward.</div>
+              <div class="opt"><span class="box"></span>Hide in the bathtub until Thursday.</div>
+              <div class="opt"><span class="box"></span>Offer him the goose. It is in the bathtub.</div>
+            </div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B4 Outcome (the stamp)</b>The one animated moment: the red verdict slams down. Changes show icon, number and sign, never color alone.</figcaption>
+        <div class="phone copy-canary">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div style="display:flex;align-items:center;gap:12px"><div style="flex:1"><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="cap" style="margin-top:4px;color:var(--ink)">Incident 7 of 13, age 34</p></div></div>
+            <div class="stats">
+              <div class="stat"><svg class="ic"><use href="#i-heart"/></svg><b>61</b><span class="d dn">−3</span></div>
+              <div class="stat"><svg class="ic"><use href="#i-smile"/></svg><b>44</b><span class="d up">+6</span></div>
+              <div class="stat"><svg class="ic"><use href="#i-coin"/></svg><b>$212</b><span class="d">±0</span></div>
+              <div class="stat"><svg class="ic"><use href="#i-star"/></svg><b>30</b><span class="d up">+9</span></div>
+            </div>
+            <div class="form lift" style="position:relative;padding-bottom:100px">
+              <p class="cap">You chose: Pay with the hot dog.</p>
+              <p class="nar" style="margin-top:8px">Mr. Dunmore studies the hot dog for a long time. "Fine," he says. "But I'm taking the bun."</p>
+              <div style="position:absolute;right:12px;bottom:12px"><span class="stamp-mark slam">Accepted,<br>somehow</span></div>
+            </div>
+            <div class="row" style="padding:6px 2px"><svg class="ic"><use href="#i-folder"/></svg><div class="grow"><b>New fact</b><small>Mr. Dunmore has a bun.</small></div></div>
+            <div style="margin-top:auto;padding-bottom:36px"><div class="btn stamp">Next incident</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B5 Time skip</b>Between highlights. Plain pacing screen, Jev narrates the gap.</figcaption>
+        <div class="phone copy-canary">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="align-items:center;justify-content:center;text-align:center;gap:16px">
+            <p class="cap" style="color:var(--ink)">Incident 7 of 13</p>
+            <h1 class="disp" style="font-size:54px;line-height:1">34 → 45</h1>
+            <p class="nar">Skipping ahead 11 years. Nothing good happened. Jev checked.</p>
+            <div class="form" style="text-align:left;width:100%"><div class="row"><span class="when">36</span><div class="grow">Divorced. The bun stayed with the landlord.</div></div><div class="row"><span class="when">41</span><div class="grow">Got a cat. The cat left.</div></div><div class="row"><span class="when">44</span><div class="grow">Jev is still filling in the rest.</div></div></div>
+            <svg class="pg md"><use href="#pigeon"/></svg>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B6 Autopsy report</b>The end of every life and the share unit. Cause of death is the joke.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1 class="disp" style="font-size:28px;line-height:1.05">Autopsy report</h1><p class="cap">Case closed after 13 incidents</p></div><span class="stamp-mark sm slam">Deceased</span></div>
+            <div class="form lift" style="display:grid;gap:8px">
+              <div style="display:flex;gap:12px;align-items:center"><svg class="av sm" style="--skin:#e9b98f;--shirt:#2433c9;--hair:#8a90b8"><use href="#av-dead"/></svg><div><b style="font-size:19px">Gary Pembrook, 71</b><p class="cap">Regional Embarrassment · Notoriety 412</p></div></div>
+              <div class="fld"><small>Cause of death</small><b>Optimism. Choked on a rotisserie chicken while smuggling it into a funeral.</b></div>
+            </div>
+            <div class="form"><p class="cap" style="margin-bottom:2px">Top incidents</p>
+              <div class="row"><span class="when">34</span><div class="grow">Paid rent with a hot dog.</div></div>
+              <div class="row"><span class="when">41</span><div class="grow">Won custody of a goose.</div></div>
+              <div class="row"><span class="when">58</span><div class="grow">Banned from his own retirement party.</div></div></div>
+            <div style="margin-top:auto;padding-bottom:36px;display:grid;gap:10px"><div class="btn"><svg class="ic"><use href="#i-share"/></svg>Share report</div><div class="btn ghost">Open next case</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>B7 Share sheet</b>9:16 card preview. The link is off by default and the player can share the image alone.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="opacity:.5"><div class="hd"><h1>Autopsy report</h1></div></div>
+          <div class="scrim"></div>
+          <div class="sheet" style="gap:12px;align-items:center">
+            <i class="grab"></i>
+            <div style="display:flex;justify-content:space-between;width:100%;align-items:center"><h2 class="disp" style="font-size:22px">Share autopsy report</h2><svg class="ic"><use href="#i-x"/></svg></div>
+            <div class="card916">
+              <h3>Autopsy report</h3>
+              <p><b>Gary Pembrook, 71</b><br>Regional Embarrassment</p>
+              <div class="cause">Died of: Optimism. Choked on a rotisserie chicken while smuggling it into a funeral.</div>
+              <p>34 · Paid rent with a hot dog.<br>41 · Won custody of a goose.<br>58 · Banned from his own retirement party.</p>
+              <div style="position:absolute;right:8px;bottom:12px"><span class="stamp-mark sm">Deceased</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;text-align:center;font-weight:700;font-size:13px"><span><span class="ic-btn" style="margin:0 auto 4px"><svg class="ic"><use href="#i-img"/></svg></span>Save</span><span><span class="ic-btn" style="margin:0 auto 4px"><svg class="ic"><use href="#i-msg"/></svg></span>Messages</span><span><span class="ic-btn" style="margin:0 auto 4px"><svg class="ic"><use href="#i-share"/></svg></span>Stories</span><span><span class="ic-btn" style="margin:0 auto 4px"><svg class="ic"><use href="#i-plus"/></svg></span>More</span></div>
+            <div class="row" style="width:100%;padding:6px 0"><div class="grow"><b>Include a link to the game</b></div><i class="sw"></i></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== LONG MODE ===================== -->
+  <section id="long">
+    <div class="flow"><h2>Long mode: your Subject</h2><p>One character who keeps living online. You decide the big moments within a window, then Jev decides. No neglect deaths, no timers on care.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>C1 Your Subject</b>The pet view. Pink copy means something may be waiting on you.</figcaption>
+        <div class="phone copy-pink">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Gary<small>Age 41 · Lower Mildew</small></h1><span class="ic-btn"><svg class="ic"><use href="#i-bell"/></svg><span class="badge">1</span></span></div>
+            <div style="display:flex;justify-content:center;position:relative;margin:4px 0"><svg class="av xl" style="--skin:#e9b98f;--shirt:#2433c9;--hair:#10163f"><use href="#av-panic"/></svg><span class="chip" style="position:absolute;right:6px;top:6px">Mood: feral</span></div>
+            <div class="form"><div class="fld"><small>Currently</small><b>Serving 3 days for goose-related crimes.</b></div><div class="fld" style="border:0"><small>Next incident</small><b>in about 2h 10m</b></div></div>
+            <div class="stats">
+              <div class="stat"><svg class="ic"><use href="#i-heart"/></svg><b>52</b><small>Health</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-smile"/></svg><b>27</b><small>Happiness</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-coin"/></svg><b>$90</b><small>Money</small></div>
+              <div class="stat"><svg class="ic"><use href="#i-star"/></svg><b>88</b><small>Notoriety</small></div>
+            </div>
+            <div class="jev"><svg class="pg"><use href="#pigeon"/></svg><div class="bubble">Don't worry about it. I handled it.</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="btn ghost sm" style="width:100%">Overnight report</div><div class="btn ghost sm" style="width:100%">Management style</div></div>
+            <nav class="nav"><a class="on"><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>C2 Overnight report</b>The digest. Every entry says who decided: you or Jev.</figcaption>
+        <div class="phone copy-pink">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>While you were out<small>3 incidents since 22:00</small></h1></div>
+            <div class="form" style="padding:4px 14px">
+              <div class="row" style="align-items:flex-start"><span class="when">02:14</span><div class="grow"><span class="chip">Jev decided</span><b style="margin-top:6px">Entered a hot-dog eating contest as a plus-one.</b><small>Won $40. Lost a molar.</small></div></div>
+              <div class="row" style="align-items:flex-start"><span class="when">05:40</span><div class="grow"><span class="chip">Auto</span><b style="margin-top:6px">A notary asked Gary to witness something.</b><small>He did. Nobody will say what.</small></div></div>
+              <div class="row" style="align-items:flex-start"><span class="when">07:55</span><div class="grow"><span class="chip">Jev decided</span><b style="margin-top:6px">Accepted a goose from a stranger named Terrence.</b><small>Notoriety +12. The goose has a file now.</small></div></div>
+            </div>
+            <div class="form" style="display:flex;gap:10px;align-items:center"><svg class="pg"><use href="#pigeon"/></svg><div><b>Jev made 2 calls</b><p class="cap">1 good, 1 questionable.</p></div></div>
+            <div style="margin-top:auto;padding-bottom:36px"><div class="btn">Got it</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>C3 Decision needed</b>The hook. A push brings you here. Jev's lean is shown as a probability, and "decide now" is always available.</figcaption>
+        <div class="phone copy-pink">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="hd"><h1>Decision needed</h1><span class="ic-btn"><svg class="ic"><use href="#i-x"/></svg></span></div>
+            <div class="form lift" style="display:flex;justify-content:space-between;align-items:center"><div><p class="cap">Jev decides in</p><b class="disp" style="font-size:34px">01:42:09</b></div><svg class="ic lg"><use href="#i-clock"/></svg></div>
+            <div class="form"><p class="nar">A man named Terrence offers Gary a goose for $40. The goose is already in the car.</p></div>
+            <div style="display:grid;gap:8px">
+              <div class="opt sel"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>Buy the goose.<span class="lean">Jev 58%</span></div>
+              <div class="opt"><span class="box"></span>Decline politely.<span class="lean">Jev 12%</span></div>
+              <div class="opt"><span class="box"></span>Ask what the goose has been through.<span class="lean">Jev 30%</span></div>
+            </div>
+            <p class="fine">Jev's lean is a probability, not a promise.</p>
+            <div style="margin-top:auto;padding-bottom:36px;display:grid;gap:10px"><div class="btn stamp">Stamp my choice</div><div class="btn ghost sm" style="width:100%">Let Jev decide now</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>C4 Management style</b>Sets how Jev decides, what is off limits, and which incidents wait for you.</figcaption>
+        <div class="phone copy-pink">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:8px">
+            <div class="hd"><h1>Management style<small>How Jev decides while you're out</small></h1></div>
+            <div class="form" style="padding:6px 14px 8px">
+              <div><div style="display:flex;justify-content:space-between"><b>Recklessness</b><span class="cap">High</span></div><div class="rng" style="--v:70%"><i></i></div></div>
+              <div><div style="display:flex;justify-content:space-between"><b>Greed</b><span class="cap">Low</span></div><div class="rng" style="--v:35%"><i></i></div></div>
+              <div><div style="display:flex;justify-content:space-between"><b>Kindness</b><span class="cap">Medium</span></div><div class="rng" style="--v:55%"><i></i></div></div>
+              <div><div style="display:flex;justify-content:space-between"><b>Chaos</b><span class="cap">Very high</span></div><div class="rng" style="--v:85%"><i></i></div></div>
+            </div>
+            <div class="form" style="display:grid;gap:8px"><b>Waits for you</b><div class="seg"><span class="on">Major only</span><span>Everything</span><span>Nothing</span></div><div class="chips"><span class="chip">30 min</span><span class="chip on">2 hours</span><span class="chip">8 hours</span></div></div>
+            <div class="form" style="padding:2px 14px"><div class="row"><div class="grow"><b>Never get married</b></div><i class="sw on"></i></div><div class="row"><div class="grow"><b>Never quit the job</b></div><i class="sw on"></i></div><div class="row"><div class="grow"><b>Never adopt animals</b></div><i class="sw"></i></div><div class="row"><div class="grow"><b>Never spend over $500</b></div><i class="sw on"></i></div></div>
+            <div style="margin-top:auto;padding-bottom:36px"><div class="btn">Save style</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>C5 Case log</b>The life as a timeline, filterable by who decided.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Case log<small>Gary Pembrook, age 41</small></h1></div>
+            <div class="chips"><span class="chip on">All</span><span class="chip">You</span><span class="chip">Jev</span></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><span class="when">41</span><div class="grow"><b>Won custody of a goose.</b><small>Jev decided</small></div></div>
+              <div class="row"><span class="when">40</span><div class="grow"><b>Fired from Chuckle Barn.</b><small>You decided</small></div></div>
+              <div class="row"><span class="when">37</span><div class="grow"><b>Married a notary. Briefly.</b><small>Jev decided</small></div></div>
+              <div class="row"><span class="when">34</span><div class="grow"><b>Paid rent with a hot dog.</b><small>You decided</small></div></div>
+              <div class="row"><span class="when">29</span><div class="grow"><b>Got stuck in a revolving door for nine minutes.</b><small>Auto</small></div></div>
+              <div class="row"><span class="when">22</span><div class="grow"><b>Left the cheese on a bus.</b><small>You decided</small></div></div>
+            </div>
+            <nav class="nav"><a class="on"><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>C6 Facts and associates</b>What the Bureau knows. Facts feed callbacks, so the player can see why a joke came back.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Facts<small>Gary Pembrook</small></h1></div>
+            <div class="form" style="padding:4px 14px"><div class="fld"><small>Job</small><b>Night clerk, Chuckle Barn (fired)</b></div><div class="fld"><small>Marital status</small><b>Divorced, 1 notary</b></div><div class="fld" style="border:0"><small>Home</small><b>A bathtub, Lower Mildew</b></div></div>
+            <h2 class="disp" style="font-size:20px;margin-top:4px">Known associates</h2>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><span class="initial">D</span><div class="grow"><b>Mr. Dunmore</b><small>Landlord. Owns your bun.</small></div></div>
+              <div class="row"><span class="initial">K</span><div class="grow"><b>Kevin</b><small>Next door. Nemesis, level 3.</small></div></div>
+              <div class="row"><span class="initial">B</span><div class="grow"><b>Brenda from Compliance</b><small>Has flagged you twice.</small></div></div>
+              <div class="row"><span class="initial">G</span><div class="grow"><b>The Goose</b><small>Unaccounted for. Sighting 6 of 13.</small></div></div>
+            </div>
+            <nav class="nav"><a class="on"><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== SOCIAL ===================== -->
+  <section id="social">
+    <div class="flow"><h2>Colleagues</h2><p>Friends are the people in the next cubicle. Their Subjects cross yours in memos. Safety screens are plain and serious, with no jokes.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>D1 Colleagues</b>This week's crossings first, then your colleagues.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Colleagues</h1><span class="ic-btn"><svg class="ic"><use href="#i-plus"/></svg></span></div>
+            <div class="form canary lift" style="display:grid;gap:8px"><span class="chip" style="width:fit-content">New memo</span><p class="nar" style="font-size:17.5px">Your Subject and Priya's Subject were seen sharing a bus seat. Both deny it.</p><div class="btn sm" style="width:100%">Read memo</div></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><span class="initial">P</span><div class="grow"><b>Priya R.</b><small>Subject: Dolores, 29. Currently in a deposition.</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="initial">M</span><div class="grow"><b>Marcus</b><small>Subject: Hector, 63. Currently lost.</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><span class="initial">A</span><div class="grow"><b>Ana</b><small>Subject: Wendell, 52. Grounded by his mother.</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+            </div>
+            <div class="btn ghost sm" style="width:100%">Invite a colleague</div>
+            <nav class="nav"><a><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a class="on"><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>D2 Inter-office memo</b>A crossing, written as a memo. Both players see the outcome of the reply.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="hd"><h1>Inter-office memo</h1><span class="ic-btn"><svg class="ic"><use href="#i-x"/></svg></span></div>
+            <div class="form lift"><div class="fld"><small>From</small><b>Pamela Voss, Director of Outcomes</b></div><div class="fld"><small>Re</small><b>Your Subject and Priya's Subject</b></div>
+              <p class="nar" style="margin-top:10px;font-size:18px">Gary Pembrook and Dolores Nakamura-Finch were seen sharing a bus seat on route 9. Both deny it. The Bureau requests your position.</p></div>
+            <div style="display:grid;gap:8px"><div class="opt"><span class="box"></span>Approve the friendship.</div><div class="opt"><span class="box"></span>Deny everything.</div><div class="opt"><span class="box"></span>Forward to Priya.</div></div>
+            <div style="margin-top:auto;padding-bottom:34px;display:grid;gap:12px"><div class="btn stamp">Stamp my reply</div><p class="center"><span class="link">Report this memo</span></p></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>D3 Report or block</b>Reached from any memo. Direct wording, no humor, always available.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="opacity:.5"><div class="hd"><h1>Inter-office memo</h1></div></div>
+          <div class="scrim"></div>
+          <div class="sheet">
+            <i class="grab"></i>
+            <h2 class="disp" style="font-size:24px">Report this memo</h2>
+            <div style="display:grid;gap:8px">
+              <div class="opt radio sel"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>Harassment or bullying</div>
+              <div class="opt radio"><span class="box"></span>Sexual content involving a minor</div>
+              <div class="opt radio"><span class="box"></span>Hate toward a group</div>
+              <div class="opt radio"><span class="box"></span>Spam or scam</div>
+              <div class="opt radio"><span class="box"></span>Something else</div>
+            </div>
+            <p class="fine">Reports go to the safety team. The other player is not told who reported.</p>
+            <div style="display:grid;gap:8px"><div class="btn">Send report</div><div class="btn danger">Block Priya R.</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== META ===================== -->
+  <section id="meta">
+    <div class="flow"><h2>Meta: collection, rank, story, shop, settings</h2><p>The reasons to come back after the first life, and the controls that make the game safe to hand to anyone.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>E1 Archive</b>Every autopsy filed, plus Goose sightings. Locked slots show what is missing.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Archive<small>14 filed · 6 of 13 Goose sightings</small></h1></div>
+            <div class="seg"><span class="on">Autopsies</span><span>Ribbons</span><span>Geese</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="form" style="padding:10px;display:grid;gap:4px"><b>Gary Pembrook</b><p class="cap">Optimism, rotisserie chicken</p><span class="stamp-mark sm" style="width:fit-content">Deceased</span></div>
+              <div class="form" style="padding:10px;display:grid;gap:4px"><b>Dolores N-F</b><p class="cap">A very small boat</p><span class="stamp-mark sm" style="width:fit-content">Deceased</span></div>
+              <div class="form" style="padding:10px;display:grid;gap:4px"><b>Hector Quill</b><p class="cap">Heckled his own eulogy</p><span class="stamp-mark sm" style="width:fit-content">Deceased</span></div>
+              <div class="form" style="padding:10px;display:grid;gap:4px"><b>Wendell Ash</b><p class="cap">Revolving door, final</p><span class="stamp-mark sm" style="width:fit-content">Deceased</span></div>
+              <div class="form" style="padding:10px;display:grid;gap:4px;border-style:dashed;background:transparent"><svg class="ic"><use href="#i-lock"/></svg><p class="cap">Not yet filed. Die of a pun.</p></div>
+              <div class="form" style="padding:10px;display:grid;gap:4px;border-style:dashed;background:transparent"><svg class="ic"><use href="#i-lock"/></svg><p class="cap">Not yet filed. Die of a goose.</p></div>
+            </div>
+            <nav class="nav"><a><svg class="ic"><use href="#i-home"/></svg>Desk</a><a class="on"><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E2 Rank</b>Notoriety from every life moves you up. Each rank unlocks something concrete, never a timer or a currency.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Rank</h1></div>
+            <div class="form lift" style="display:grid;gap:8px"><p class="cap">Current rank</p><h2 class="disp" style="font-size:34px">Associate</h2><div class="prog" style="--w:62%"><i></i></div><p class="cap">Notoriety 1,240 of 2,000 for Coordinator</p></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><svg class="ic"><use href="#i-check"/></svg><div class="grow"><b>Intern</b></div></div>
+              <div class="row"><svg class="ic"><use href="#i-star"/></svg><div class="grow"><b>Associate</b><small>You are here. 3 quirk slots.</small></div></div>
+              <div class="row"><svg class="ic"><use href="#i-chev"/></svg><div class="grow"><b>Coordinator</b><small>Unlocks a 4th quirk slot and a desk plant.</small></div></div>
+              <div class="row"><svg class="ic"><use href="#i-lock"/></svg><div class="grow"><b>Supervisor</b></div></div>
+              <div class="row"><svg class="ic"><use href="#i-lock"/></svg><div class="grow"><b>Senior Adjuster of Fates</b></div></div>
+              <div class="row"><svg class="ic"><use href="#i-lock"/></svg><div class="grow"><b>Regional Director</b></div></div>
+            </div>
+            <nav class="nav"><a><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a class="on"><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E3 Quarterly review</b>The long story. Evidence from Goose sightings unlocks chapters of The Missing Memo.</figcaption>
+        <div class="phone copy-canary">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="hd"><h1>Audit Season<small>Chapter 2 of 6 · 12 days left</small></h1><span class="ic-btn"><svg class="ic"><use href="#i-x"/></svg></span></div>
+            <div class="form lift"><div class="fld"><small>From</small><b>Pamela Voss</b></div><div class="fld"><small>Re</small><b>The Missing Memo</b></div>
+              <p class="nar" style="margin-top:10px;font-size:18px">Someone has been approving incidents without a signature. Jev says it wasn't him. Jev is a pigeon.</p></div>
+            <div class="form" style="display:grid;gap:8px"><div style="display:flex;justify-content:space-between"><b>Evidence</b><span class="cap">6 of 13 Goose sightings</span></div><div class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="cap">Chapter 3 opens at 8 sightings.</p></div>
+            <div class="jev"><svg class="pg"><use href="#pigeon"/></svg><div class="bubble">It wasn't me. Check the goose.</div></div>
+            <div style="margin-top:auto;padding-bottom:36px"><div class="btn stamp">Open a case</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E4 Supply closet</b>Honest one-time prices. No currencies, no energy, no random packs.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>Supply closet</h1></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><div class="grow"><b>Remove ads</b><small>No ads between incidents.</small></div><span class="btn sm" style="min-height:40px">$2.99</span></div>
+              <div class="row"><div class="grow"><b>Wedding Season</b><small>40 new incidents. One-time pack.</small></div><span class="btn sm" style="min-height:40px">$4.99</span></div>
+              <div class="row"><div class="grow"><b>Stamp inks</b><small>Pick the color of your stamp.</small></div><span class="btn sm" style="min-height:40px">$1.99</span></div>
+              <div class="row"><div class="grow"><b>Desk plant</b><small>It does nothing. It's a nice plant.</small></div><span class="btn sm" style="min-height:40px">$0.99</span></div>
+            </div>
+            <div class="form canary" style="display:flex;align-items:center;gap:12px"><div class="grow" style="flex:1"><b>Watch an ad</b><p class="cap" style="color:var(--ink)">Get one extra reroll for a new case.</p></div><span class="btn ghost sm">Watch</span></div>
+            <p class="center"><span class="link">Restore purchases</span></p>
+            <nav class="nav"><a><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a class="on"><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E5 Settings</b>Dark mode and accessibility are free. Content intensity sits at the top.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body">
+            <div class="hd"><h1>You</h1></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><div class="grow"><b>Content intensity</b><small>Standard</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="grow"><b>Text size</b><div class="rng" style="--v:45%;margin:12px 0 4px"><i></i></div></div></div>
+              <div class="row"><div class="grow"><b>Dark mode</b></div><i class="sw"></i></div>
+              <div class="row"><div class="grow"><b>Reduce motion</b><small>Stamps appear without the slam.</small></div><i class="sw"></i></div>
+              <div class="row"><div class="grow"><b>Haptics</b></div><i class="sw on"></i></div>
+              <div class="row"><div class="grow"><b>Sound</b></div><i class="sw on"></i></div>
+              <div class="row"><div class="grow"><b>Language</b><small>English</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="grow"><b>Notifications</b></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="grow"><b>Account and data</b></div><svg class="ic"><use href="#i-chev"/></svg></div>
+            </div>
+            <nav class="nav"><a><svg class="ic"><use href="#i-home"/></svg>Desk</a><a><svg class="ic"><use href="#i-folder"/></svg>Archive</a><a><svg class="ic"><use href="#i-users"/></svg>Colleagues</a><a><svg class="ic"><use href="#i-bag"/></svg>Closet</a><a class="on"><svg class="ic"><use href="#i-gear"/></svg>You</a></nav>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E6 Content intensity</b>The player's control over tone and topics. Skipped topics are replaced, never blanked.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="hd"><h1>Content intensity</h1><span class="ic-btn"><svg class="ic"><use href="#i-chev" style="transform:scaleX(-1);transform-origin:center"/></svg></span></div>
+            <div style="display:grid;gap:8px">
+              <div class="opt radio"><span class="box"></span><span>Gentle<br><small style="font-weight:400;color:var(--muted)">Awkward and silly. Hot dog level.</small></span></div>
+              <div class="opt radio sel"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span><span>Standard<br><small style="font-weight:400;color:var(--muted)">Crude and petty. Dark when it's funny.</small></span></div>
+              <div class="opt radio"><span class="box"></span><span>Feral<br><small style="font-weight:400;color:var(--muted)">The darkest the store rating allows.</small></span></div>
+            </div>
+            <h2 class="disp" style="font-size:19px;margin-top:4px">Topics</h2>
+            <div class="form" style="padding:2px 14px"><div class="row"><div class="grow"><b>Death and dying</b></div><i class="sw on"></i></div><div class="row"><div class="grow"><b>Crime</b></div><i class="sw on"></i></div><div class="row"><div class="grow"><b>Gross-out humor</b></div><i class="sw on"></i></div><div class="row"><div class="grow"><b>Drugs and alcohol</b></div><i class="sw"></i></div></div>
+            <p class="fine">A topic that is off is skipped and replaced with another incident. Your Subject's story continues.</p>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>E7 Account and data</b>Plain words, no jokes. Consent, export and deletion in one place.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="hd"><h1>Account and data</h1></div>
+            <div class="form" style="padding:2px 14px">
+              <div class="row"><div class="grow"><b>Signed in with Apple</b><small>Saves your Subject across devices.</small></div><svg class="ic"><use href="#i-check"/></svg></div>
+              <div class="row"><div class="grow"><b>AI processing</b><small>On. Your Subject's name, stats and log are sent to AI providers.</small></div><i class="sw on"></i></div>
+              <div class="row"><div class="grow"><b>Export my Subject files</b><small>Download everything as one file.</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+              <div class="row"><div class="grow"><b>Blocked colleagues</b><small>None.</small></div><svg class="ic"><use href="#i-chev"/></svg></div>
+            </div>
+            <div class="form"><b>Delete account and files</b><p class="cap" style="margin:4px 0 10px">This removes your Subject, your archive and your purchase history from our servers. Purchases themselves stay with your store account.</p><div class="btn danger sm" style="width:100%">Delete account</div></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== SYSTEM ===================== -->
+  <section id="system">
+    <div class="flow"><h2>System states</h2><p>Push notifications and the outage fallback. Push text is lock-screen safe: the joke lives in the app.</p></div>
+    <div class="grid">
+
+      <figure class="shot"><figcaption><b>F1 Lock-screen pushes</b>Three kinds: a decision, an autopilot result, the overnight report.</figcaption>
+        <div class="phone lock">
+          <div class="sb"><span></span><i class="batt"></i></div>
+          <div class="body" style="gap:10px">
+            <div class="time">9:41</div><div class="date">Tuesday, 6 October</div>
+            <div class="notif"><span class="app"><svg class="ic" style="color:var(--carbon)"><use href="#i-folder"/></svg></span><div style="flex:1"><b>Decision needed</b><span>Your Subject has been offered a goose. Reply within 2 hours.</span></div><em>now</em></div>
+            <div class="notif"><span class="app"><svg class="pg" style="width:30px;height:30px"><use href="#pigeon"/></svg></span><div style="flex:1"><b>Jev</b><span>I handled it. You're welcome.</span></div><em>6h</em></div>
+            <div class="notif"><span class="app"><svg class="ic" style="color:var(--carbon)"><use href="#i-bell"/></svg></span><div style="flex:1"><b>Overnight report</b><span>3 incidents overnight. One involved a notary.</span></div><em>8h</em></div>
+          </div><i class="home-ind"></i>
+        </div></figure>
+
+      <figure class="shot"><figcaption><b>F2 AI outage</b>Says what happened, what is safe, and what to do next. No apology, no blame.</figcaption>
+        <div class="phone copy-white">
+          <div class="sb"><span>9:41</span><i class="batt"></i></div>
+          <div class="body" style="align-items:center;justify-content:center;text-align:center;gap:14px">
+            <svg class="pg xl"><use href="#pigeon"/></svg>
+            <h1 class="disp" style="font-size:32px">Jev is at lunch</h1>
+            <p class="nar" style="font-size:18px">We can't reach the incident writers. Your Subject is safe and nothing was stamped.</p>
+            <div style="width:100%;display:grid;gap:10px;margin-top:6px"><div class="btn"><svg class="ic"><use href="#i-redo"/></svg>Try again</div><div class="btn ghost">Play a saved case</div></div>
+            <p class="fine">Saved cases use a small set of older incidents and work offline.</p>
+          </div><i class="home-ind"></i>
+        </div></figure>
+    </div>
+  </section>
+</main>
+</body>
+</html>
