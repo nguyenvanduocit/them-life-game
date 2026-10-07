@@ -1,2 +1,5 @@
 export * from './types'
 export * from './effects'
+export * from './rng'
+export * from './timeout'
+export * from './plan'
