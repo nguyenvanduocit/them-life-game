@@ -1,0 +1,8 @@
+{
+  "name": "@stc/harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "typecheck": "tsc -p . --noEmit" },
+  "dependencies": { "@stc/sim-core": "workspace:*" }
+}
