@@ -1,0 +1,9 @@
+{
+  "name": "@stc/text-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/main.ts",
+  "scripts": { "typecheck": "tsc -p . --noEmit", "start": "bun run src/main.ts" },
+  "dependencies": { "@stc/sim-core": "workspace:*", "ai": "^7.0.128", "zod": "^4.6.5" }
+}

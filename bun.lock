@@ -18,6 +18,15 @@
         "zod": "^4.6.5",
       },
     },
+    "packages/text-gateway": {
+      "name": "@stc/text-gateway",
+      "version": "0.1.0",
+      "dependencies": {
+        "@stc/sim-core": "workspace:*",
+        "ai": "^7.0.128",
+        "zod": "^4.6.5",
+      },
+    },
   },
   "packages": {
     "@ai-sdk/gateway": ["@ai-sdk/gateway@4.0.105", "", { "dependencies": { "@ai-sdk/provider": "4.0.23", "@ai-sdk/provider-utils": "5.0.55", "@vercel/oidc": "3.2.0" }, "peerDependencies": { "zod": "^3.25.76 || ^4.1.8" } }, "sha512-PTCNrir92j41EDLJy7UhIgKZ/FxLxoOIWpFYgXh9H28/z0sK4whT13FUt5ppYr96hTVbqDjER3UDYJYCNoZHTg=="],
@@ -29,6 +38,8 @@
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
     "@stc/sim-core": ["@stc/sim-core@workspace:packages/sim-core"],
+
+    "@stc/text-gateway": ["@stc/text-gateway@workspace:packages/text-gateway"],
 
     "@types/bun": ["@types/bun@1.4.2", "", { "dependencies": { "bun-types": "1.4.2" } }, "sha512-GimotNn7+ZV0uVArItBbriZsR1oNf0+WTzPkdcFrzShI7k2norL0uzEaJT8T33dWr7O/c9ZDuAFQrctKCi72oQ=="],
 
