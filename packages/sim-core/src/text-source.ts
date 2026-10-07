@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { Highlight } from './plan'
+import { HIGHLIGHT_KINDS, type Highlight } from './plan'
 import { CHOICE_TAGS, STATS, type Intensity } from './types'
 
 export const effectSchema = z.discriminatedUnion('kind', [
@@ -52,3 +52,18 @@ export interface EventRequest {
 export interface TextSource {
   generate(request: EventRequest, signal?: AbortSignal): Promise<unknown>
 }
+
+/** Wire format of an EventRequest, shared by the client and the gateway. */
+export const eventRequestSchema: z.ZodType<EventRequest> = z.object({
+  stateSummary: z.string().max(1200),
+  logTail: z.array(z.string().max(300)).max(12),
+  tone: z.object({ name: z.string().min(1).max(40), maxIntensity: z.union([z.literal(1), z.literal(2), z.literal(3)]) }),
+  highlight: z.object({
+    index: z.number().int().min(0).max(40),
+    kind: z.enum([...HIGHLIGHT_KINDS, 'death']),
+    stage: z.enum(['child', 'teen', 'adult', 'elder']),
+    age: z.number().int().min(0).max(130),
+  }),
+  seed: z.number().int(),
+  attempt: z.number().int().min(0).max(5),
+})

@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import { FALLBACK_EVENTS, pickFallback } from '../src/fallback'
 import { logTail, oneLine, stateSummary } from '../src/prompt-context'
 import { createRng } from '../src/rng'
-import { generatedEventSchema } from '../src/text-source'
+import { eventRequestSchema, generatedEventSchema } from '../src/text-source'
 import { makeEvent, makeState } from './helpers'
 
 describe('generatedEventSchema', () => {
@@ -107,5 +107,34 @@ describe('structural ids and summary length (review findings 7 and 11)', () => {
     const facts = Object.fromEntries(Array.from({ length: 12 }, (_, i) => [`${'k'.repeat(35)}${i}`, 'v'.repeat(80)]))
     const line = stateSummary(makeState({ facts }))
     expect(line.length).toBeLessThanOrEqual(1200)
+  })
+})
+
+describe('eventRequestSchema', () => {
+  const request = {
+    stateSummary: 'Gary Pembrook, age 34, adult.',
+    logTail: ['22: Left the cheese on a bus.'],
+    tone: { name: 'standard', maxIntensity: 2 },
+    highlight: { index: 6, kind: 'money', stage: 'adult', age: 34 },
+    seed: 1,
+    attempt: 0,
+  }
+
+  test('accepts a well-formed request, including the final death highlight', () => {
+    expect(eventRequestSchema.safeParse(request).success).toBe(true)
+    expect(eventRequestSchema.safeParse({ ...request, highlight: { ...request.highlight, kind: 'death', stage: 'elder', age: 80 } }).success).toBe(true)
+  })
+
+  test('rejects oversized, fractional or out-of-range fields', () => {
+    for (const bad of [
+      { ...request, attempt: 99 },
+      { ...request, seed: 0.5 },
+      { ...request, stateSummary: 'x'.repeat(1201) },
+      { ...request, logTail: Array.from({ length: 13 }, () => 'line') },
+      { ...request, highlight: { ...request.highlight, kind: 'teleport' } },
+      { ...request, tone: { name: 'standard', maxIntensity: 4 } },
+    ]) {
+      expect(eventRequestSchema.safeParse(bad).success).toBe(false)
+    }
   })
 })

@@ -10,7 +10,7 @@
 
 **Spec:** `docs/superpowers/specs/2026-10-06-sim-core-design.md` (approved by the owner on 2026-10-06). Read it first.
 
-**Provenance of the code in this plan:** every file below was written and run in a scratch workspace before this plan was generated: 178 tests pass, 1 live test is skipped, and all three packages typecheck clean. An independent reviewer then tried to refute the first version of this code; the 12 findings it raised were reproduced with failing tests and fixed, and are listed at the end. If a step's output differs from what is stated here, the step is wrong and must be investigated, not worked around.
+**Provenance of the code in this plan:** every file below was written and run in a scratch workspace before this plan was generated: 180 tests pass, 1 live test is skipped, and all three packages typecheck clean. An independent reviewer then tried to refute the first version of this code; the 12 findings it raised were reproduced with failing tests and fixed, and are listed at the end. If a step's output differs from what is stated here, the step is wrong and must be investigated, not worked around.
 
 ## Global Constraints
 
@@ -1249,8 +1249,8 @@ git commit -m "feat(sim-core): xstate life machine and validated save/load" -m "
 - Modify: `packages/sim-core/src/index.ts`
 
 **Interfaces:**
-- Consumes: `Highlight` (Task 2), `LifeState`, `CHOICE_TAGS`, `STATS`, `Intensity`, `GeneratedEvent` (Task 1), `Rng` (Task 2).
-- Produces: `effectSchema`, `choiceSchema`, `generatedEventSchema`; `ToneProfile { name; maxIntensity }`; `EventRequest { stateSummary; logTail; tone; highlight; seed; attempt }`; `TextSource { generate(request, signal?) => Promise<unknown> }`; `oneLine(text, max?)`, `stateSummary(state)`, `logTail(state, count?)`; `FALLBACK_EVENTS` (20), `pickFallback(rng) => GeneratedEvent`.
+- Consumes: `Highlight`, `HIGHLIGHT_KINDS` (Task 2), `LifeState`, `CHOICE_TAGS`, `STATS`, `Intensity`, `GeneratedEvent` (Task 1), `Rng` (Task 2).
+- Produces: `effectSchema`, `choiceSchema`, `generatedEventSchema`, `eventRequestSchema: z.ZodType<EventRequest>` (the wire format shared by the app and the gateway); `ToneProfile { name; maxIntensity }`; `EventRequest { stateSummary; logTail; tone; highlight; seed; attempt }`; `TextSource { generate(request, signal?) => Promise<unknown> }`; `oneLine(text, max?)`, `stateSummary(state)`, `logTail(state, count?)`; `FALLBACK_EVENTS` (20), `pickFallback(rng) => GeneratedEvent`.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1261,7 +1261,7 @@ import { describe, expect, test } from 'bun:test'
 import { FALLBACK_EVENTS, pickFallback } from '../src/fallback'
 import { logTail, oneLine, stateSummary } from '../src/prompt-context'
 import { createRng } from '../src/rng'
-import { generatedEventSchema } from '../src/text-source'
+import { eventRequestSchema, generatedEventSchema } from '../src/text-source'
 import { makeEvent, makeState } from './helpers'
 
 describe('generatedEventSchema', () => {
@@ -1368,6 +1368,35 @@ describe('structural ids and summary length (review findings 7 and 11)', () => {
     expect(line.length).toBeLessThanOrEqual(1200)
   })
 })
+
+describe('eventRequestSchema', () => {
+  const request = {
+    stateSummary: 'Gary Pembrook, age 34, adult.',
+    logTail: ['22: Left the cheese on a bus.'],
+    tone: { name: 'standard', maxIntensity: 2 },
+    highlight: { index: 6, kind: 'money', stage: 'adult', age: 34 },
+    seed: 1,
+    attempt: 0,
+  }
+
+  test('accepts a well-formed request, including the final death highlight', () => {
+    expect(eventRequestSchema.safeParse(request).success).toBe(true)
+    expect(eventRequestSchema.safeParse({ ...request, highlight: { ...request.highlight, kind: 'death', stage: 'elder', age: 80 } }).success).toBe(true)
+  })
+
+  test('rejects oversized, fractional or out-of-range fields', () => {
+    for (const bad of [
+      { ...request, attempt: 99 },
+      { ...request, seed: 0.5 },
+      { ...request, stateSummary: 'x'.repeat(1201) },
+      { ...request, logTail: Array.from({ length: 13 }, () => 'line') },
+      { ...request, highlight: { ...request.highlight, kind: 'teleport' } },
+      { ...request, tone: { name: 'standard', maxIntensity: 4 } },
+    ]) {
+      expect(eventRequestSchema.safeParse(bad).success).toBe(false)
+    }
+  })
+})
 ```
 
 - [ ] **Step 2: Run the tests to verify they fail**
@@ -1384,7 +1413,7 @@ Create `packages/sim-core/src/text-source.ts`:
 
 ```ts
 import { z } from 'zod'
-import type { Highlight } from './plan'
+import { HIGHLIGHT_KINDS, type Highlight } from './plan'
 import { CHOICE_TAGS, STATS, type Intensity } from './types'
 
 export const effectSchema = z.discriminatedUnion('kind', [
@@ -1437,6 +1466,21 @@ export interface EventRequest {
 export interface TextSource {
   generate(request: EventRequest, signal?: AbortSignal): Promise<unknown>
 }
+
+/** Wire format of an EventRequest, shared by the client and the gateway. */
+export const eventRequestSchema: z.ZodType<EventRequest> = z.object({
+  stateSummary: z.string().max(1200),
+  logTail: z.array(z.string().max(300)).max(12),
+  tone: z.object({ name: z.string().min(1).max(40), maxIntensity: z.union([z.literal(1), z.literal(2), z.literal(3)]) }),
+  highlight: z.object({
+    index: z.number().int().min(0).max(40),
+    kind: z.enum([...HIGHLIGHT_KINDS, 'death']),
+    stage: z.enum(['child', 'teen', 'adult', 'elder']),
+    age: z.number().int().min(0).max(130),
+  }),
+  seed: z.number().int(),
+  attempt: z.number().int().min(0).max(5),
+})
 ```
 
 Create `packages/sim-core/src/prompt-context.ts`:
@@ -1608,7 +1652,7 @@ bun test packages/sim-core/test/text-source.test.ts
 bun run --filter '@stc/sim-core' typecheck
 ```
 
-Expected: `15 pass`, `0 fail`; typecheck exit code 0.
+Expected: `17 pass`, `0 fail`; typecheck exit code 0.
 
 - [ ] **Step 5: Commit**
 
@@ -3080,16 +3124,15 @@ git commit -m "feat(sim-core): quick-life runner" -m "Co-Authored-By: Claude Son
 
 ---
 
-### Task 9: Shared request schema and the gateway client
+### Task 9: The gateway client
 
 **Files:**
-- Modify: `packages/sim-core/src/text-source.ts` (import line and an appended block)
 - Create: `packages/sim-core/src/gateway-client.ts`, `packages/sim-core/test/gateway-client.test.ts`
 - Modify: `packages/sim-core/src/index.ts`
 
 **Interfaces:**
-- Consumes: `EventRequest`, `TextSource` (Task 4), `HIGHLIGHT_KINDS` (Task 2).
-- Produces: `eventRequestSchema: z.ZodType<EventRequest>`; `GatewayError(message, status, code, retryAfter?)`; `GatewayClientOptions { url; deviceToken; consent: () => boolean; fetch? }`; `createGatewayTextSource(options) => TextSource`.
+- Consumes: `EventRequest`, `TextSource` (Task 4).
+- Produces: `GatewayError(message, status, code, retryAfter?)`; `GatewayClientOptions { url; deviceToken; consent: () => boolean; fetch? }`; `createGatewayTextSource(options) => TextSource`.
 
 The wire format: `POST {url}/event` with body `{ consent, deviceToken, request }`, answered `200 { event }` or an error status with `{ error }` (and `Retry-After` on 429).
 
@@ -3153,31 +3196,6 @@ Expected: FAIL with `Cannot find module '../src/gateway-client'`.
 
 - [ ] **Step 3: Write the implementation**
 
-In `packages/sim-core/src/text-source.ts`, replace the line `import type { Highlight } from './plan'` with:
-
-```ts
-import { HIGHLIGHT_KINDS, type Highlight } from './plan'
-```
-
-Append this block to the end of `packages/sim-core/src/text-source.ts`:
-
-```ts
-/** Wire format of an EventRequest, shared by the client and the gateway. */
-export const eventRequestSchema: z.ZodType<EventRequest> = z.object({
-  stateSummary: z.string().max(1200),
-  logTail: z.array(z.string().max(300)).max(12),
-  tone: z.object({ name: z.string().min(1).max(40), maxIntensity: z.union([z.literal(1), z.literal(2), z.literal(3)]) }),
-  highlight: z.object({
-    index: z.number().int().min(0).max(40),
-    kind: z.enum([...HIGHLIGHT_KINDS, 'death']),
-    stage: z.enum(['child', 'teen', 'adult', 'elder']),
-    age: z.number().int().min(0).max(130),
-  }),
-  seed: z.number().int(),
-  attempt: z.number().int().min(0).max(5),
-})
-```
-
 Create `packages/sim-core/src/gateway-client.ts`:
 
 ```ts
@@ -3240,7 +3258,7 @@ bun test packages/sim-core
 bun run --filter '@stc/sim-core' typecheck
 ```
 
-Expected: `126 pass` across the whole package, `1 skip`, `0 fail`; typecheck exit code 0.
+Expected: `128 pass` across the whole package, `1 skip`, `0 fail`; typecheck exit code 0.
 
 - [ ] **Step 5: Commit**
 
@@ -4698,7 +4716,7 @@ bun test
 bun run typecheck
 ```
 
-Expected: `178 pass`, `1 skip`, `0 fail`; `@stc/sim-core`, `@stc/text-gateway` and `@stc/harness` each print `typecheck: Exited with code 0`.
+Expected: `180 pass`, `1 skip`, `0 fail`; `@stc/sim-core`, `@stc/text-gateway` and `@stc/harness` each print `typecheck: Exited with code 0`.
 
 - [ ] **Step 2: Write the README**
 
@@ -4720,7 +4738,7 @@ A comedy-first mobile life simulator. This repository currently holds sub-projec
 ## Commands
 
     bun install
-    bun test                       # 178 tests, no network needed
+    bun test                       # 180 tests, no network needed
     bun run typecheck
 
 ## Run the gateway
