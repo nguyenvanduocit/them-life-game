@@ -150,7 +150,19 @@ export function createJevChecker(evaluator: Evaluator, config: CheckConfig = DEF
   }
 }
 
-const DEATH_WORDS = /\b(dies|died|is dead|was killed|kills? (him|her|you|them)|passes away|passed away)\b/i
+const DEATH_WORDS = new RegExp(
+  [
+    'dies|die|died|dying',
+    '(?:is|are|was|were|now|drops?|falls?) dead(?! (?:serious|set|end|wrong|center|ahead))',
+    '(?:is|are|was|were|got|gets|get|be|been) (?:\\w+ )?killed',
+    'kills? (?:him|her|you|them|the subject)',
+    'passes? away|passed away',
+    'perish(?:es|ed)?|succumbs?|succumbed',
+    'drowns?|drowned',
+    'choked to death|dead on arrival',
+  ].join('|').replace(/^/, '\\b(?:').concat(')\\b'),
+  'i',
+)
 
 /**
  * Network-free verifier used when Jev is down. It only catches the dangerous

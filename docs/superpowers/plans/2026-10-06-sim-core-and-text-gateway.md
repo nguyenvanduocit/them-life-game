@@ -4820,3 +4820,11 @@ An independent reviewer tried to refute the first version of this code against t
 **Not built here, on purpose.** The sim core does not prefetch, render, consent-prompt, schedule or push. Those belong to sub-projects 2 and 3. Funny-rate gating is not automated: the rating CSV is for a human, as the spec says.
 
 **Open risks this plan does not remove.** Jev's real behavior on dark content and its availability are unverified (LOW); the acceptance script is how the owner finds out. The AI Gateway credential variable name is not stated because it was not verified; the README tells the implementer to use the one the AI SDK provider documents.
+
+## Post-execution amendments
+
+Executing this plan task by task found one ordering defect and a final whole-branch review found five more issues. Both were fixed test-first on `feat/sim-core`; the plan text above is unchanged apart from the first, so a fresh replay of the plan reproduces the pre-review state (180 tests). The branch head is the authority.
+
+1. **Ordering (fixed in this plan):** `eventRequestSchema` moved from Task 9 into Task 4, because Task 8's quick-life test needs it.
+2. **Fix pass after the final review** (202 tests on the branch): the gateway checks the global budget before charging a device, so forged tokens cannot grow the per-device map; `deterministicVerify` recognizes second-person, passive and common synonym phrasings of death; `applyEffects` and the `OUTCOME` action ignore non-finite numbers, so a save always loads; `callWithDeadline` uses only `AbortController` and `setTimeout` and clears its timer, so it works on WebViews older than iOS 17.4; the harness no longer counts checker errors as answers and injects `death-unmentioned` into a choice that can change.
+3. **Known minors, deferred:** `in` versus `Object.hasOwn` on Jev answers; a safe-but-unfunny candidate is dropped when Jev fails on the extra regeneration; the gateway caches events above the request's intensity limit; non-retryable gateway refusals are retried; `__proto__` as a fact key or choice id; log `tags` are never recorded.

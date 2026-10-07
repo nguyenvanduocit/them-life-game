@@ -39,14 +39,21 @@ export function createDailyBudget(options: { maxPerDay: number } & Clock) {
   const now = options.now ?? Date.now
   const days = new Map<string, { day: string; count: number }>()
   let currentDay = ''
+  const today = (): string => new Date(now()).toISOString().slice(0, 10)
 
   return {
     get size(): number {
       return days.size
     },
+    /** True when consume(key) would succeed. Spends nothing and stores nothing. */
+    peek(key: string): boolean {
+      const entry = days.get(key)
+      const count = entry && entry.day === today() ? entry.count : 0
+      return count < options.maxPerDay
+    },
     /** Returns false when the key has used up today's budget. */
     consume(key: string): boolean {
-      const day = new Date(now()).toISOString().slice(0, 10)
+      const day = today()
       if (day !== currentDay) {
         for (const [k, entry] of days) if (entry.day !== day) days.delete(k)
         currentDay = day

@@ -40,7 +40,8 @@ export const lifeMachine = setup({
     outcome: assign(({ context, event }) => {
       if (event.type !== 'OUTCOME') return {}
       const next = applyEffects(context, event.outcome.effects)
-      return { ...next, log: [...context.log, { age: event.atAge, text: event.outcome.narration, tags: [] }] }
+      const atAge = Number.isFinite(event.atAge) && event.atAge >= 0 ? Math.floor(event.atAge) : context.age
+      return { ...next, log: [...context.log, { age: atAge, text: event.outcome.narration, tags: [] }] }
     }),
   },
 }).createMachine({

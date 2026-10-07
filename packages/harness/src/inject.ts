@@ -23,7 +23,9 @@ export function injectContradiction(event: GeneratedEvent, kind: ContradictionKi
     choice.outcome.narration += ' Then he dies.'
     choice.outcome.effects = withoutDeath
   } else if (kind === 'death-unmentioned') {
-    choice.outcome.effects = [...withoutDeath, { kind: 'death', cause: 'Unspecified causes' }]
+    // Prefer a choice that does not already declare a death, or the injection would change nothing.
+    const target = copy.choices.find((c) => !c.outcome.effects.some((e) => e.kind === 'death')) ?? choice
+    target.outcome.effects = [...target.outcome.effects.filter((e) => e.kind !== 'death'), { kind: 'death', cause: 'Unspecified causes' }]
   } else if (kind === 'money-lost-unstated') {
     choice.outcome.narration += ' He pays $50 for it.'
     choice.outcome.effects = withoutMoney

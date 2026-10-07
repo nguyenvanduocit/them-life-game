@@ -155,6 +155,15 @@ describe('hardening from review (findings 2, 3, 4, 10)', () => {
     expect(await res.json()).toEqual({ error: 'service_busy' })
   })
 
+  test('once the global budget is spent, forged tokens add no per-device entries (final review, finding 1)', async () => {
+    const budget = createDailyBudget({ maxPerDay: 100 })
+    const { post } = setup({ budget, globalBudget: createDailyBudget({ maxPerDay: 3 }), rateLimiter: createRateLimiter({ max: 1000, windowMs: 60_000 }) })
+    for (let i = 0; i < 50; i++) {
+      await post(valid({ deviceToken: `device-token-${String(i).padStart(4, '0')}`, request: { ...request, seed: i } }))
+    }
+    expect(budget.size).toBeLessThanOrEqual(3)
+  })
+
   test('a provider that ignores the abort signal is cut off by the gateway timeout', async () => {
     const { post } = setup({ providerTimeoutMs: 30 }, { generate: () => new Promise<never>(() => {}) })
     const started = Date.now()

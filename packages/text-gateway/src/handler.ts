@@ -82,8 +82,10 @@ export function createHandler(deps: HandlerDeps): (request: Request) => Promise<
     const cached = deps.cache.get(key)
     if (cached) return json(200, { event: cached, cached: true })
 
+    // Check the global cap first, so a flood of forged tokens cannot fill the per-device map once it is spent.
+    if (deps.globalBudget && !deps.globalBudget.peek('global')) return json(429, { error: 'service_busy' }, { 'retry-after': '3600' })
     if (!deps.budget.consume(body.data.deviceToken)) return json(429, { error: 'daily_budget' }, { 'retry-after': '3600' })
-    if (deps.globalBudget && !deps.globalBudget.consume('global')) return json(429, { error: 'service_busy' }, { 'retry-after': '3600' })
+    deps.globalBudget?.consume('global')
 
     let produced: unknown
     try {

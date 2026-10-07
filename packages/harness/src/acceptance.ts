@@ -35,6 +35,7 @@ export async function runVerifierAcceptance(checker: EventChecker, set: readonly
       flagged = !(await checker.check(item.event)).verify.ok
     } catch {
       errors++
+      continue // no answer to count either way
     }
     if (item.contradicts) flagged ? tp++ : fn++
     else flagged ? fp++ : tn++

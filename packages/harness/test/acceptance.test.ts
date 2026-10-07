@@ -56,3 +56,11 @@ describe('runVerifierAcceptance', () => {
     expect(r).toMatchObject({ total: 0, recall: 0, falsePositiveRate: 0 })
   })
 })
+
+describe('checker errors do not count as answers (final review, finding 5)', () => {
+  test('an error on a clean event is excluded from the false-positive rate', async () => {
+    const clean: LabeledEvent[] = Array.from({ length: 10 }, () => ({ event, contradicts: false }))
+    const r = await runVerifierAcceptance(checkerFrom((i) => (i === 0 ? new EvaluatorError('down') : false)), clean)
+    expect(r).toMatchObject({ checkerErrors: 1, trueNegatives: 9, falsePositives: 0 })
+  })
+})

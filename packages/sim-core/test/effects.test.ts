@@ -81,6 +81,11 @@ describe('applyEffects', () => {
     expect(applyEffects(dead, [stat('health', 10), { kind: 'death', cause: 'Again' }])).toBe(dead)
   })
 
+  test('ignores non-finite deltas instead of poisoning a stat (final review, finding 3)', () => {
+    const s = applyEffects(makeState(), [stat('health', Number.NaN), stat('money', Number.POSITIVE_INFINITY), stat('happiness', 5)])
+    expect(s.stats).toEqual({ health: 64, happiness: 43, money: 212, notoriety: 21 })
+  })
+
   test('does not mutate its input', () => {
     const before = makeState()
     const snapshot = structuredClone(before)

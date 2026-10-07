@@ -86,6 +86,7 @@ export function applyEffects(state: LifeState, effects: readonly Effect[]): Life
 
   for (const e of effects) {
     if (e.kind === 'stat') {
+      if (!Number.isFinite(e.delta)) continue
       stats[e.stat] = e.stat === 'money' ? stats.money + e.delta : clamp100(stats[e.stat] + e.delta)
     } else if (e.kind === 'fact') {
       facts[e.key] = e.value

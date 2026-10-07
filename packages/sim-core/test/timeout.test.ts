@@ -41,3 +41,30 @@ describe('callWithDeadline', () => {
     await expect(callWithDeadline(() => { throw new Error('sync boom') }, 1000)).rejects.toThrow('sync boom')
   })
 })
+
+describe('callWithDeadline on an older runtime (final review, finding 4)', () => {
+  test('works without AbortSignal.any and AbortSignal.timeout, as in WebViews older than iOS 17.4', async () => {
+    const statics = AbortSignal as unknown as Record<string, unknown>
+    const saved = { any: statics.any, timeout: statics.timeout }
+    delete statics.any
+    delete statics.timeout
+    try {
+      expect(await callWithDeadline(async () => 'ok', 1000)).toBe('ok')
+      await expect(callWithDeadline(() => new Promise<never>(() => {}), 30)).rejects.toBeDefined()
+      const controller = new AbortController()
+      const pending = callWithDeadline(() => new Promise<never>(() => {}), 5000, controller.signal)
+      controller.abort(new Error('caller left'))
+      await expect(pending).rejects.toThrow('caller left')
+    } finally {
+      statics.any = saved.any
+      statics.timeout = saved.timeout
+    }
+  })
+
+  test('clears its timer once the call finishes, so a finished call cannot abort later', async () => {
+    let seen: AbortSignal | undefined
+    await callWithDeadline(async (signal) => { seen = signal }, 40)
+    await new Promise((r) => setTimeout(r, 80))
+    expect(seen?.aborted).toBe(false)
+  })
+})

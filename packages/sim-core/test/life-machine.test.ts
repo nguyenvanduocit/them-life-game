@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test'
 import { lifeState, newLife, stageForAge, stepLife } from '../src/life-machine'
+import { loadLife, saveLife } from '../src/persist'
 import type { Outcome } from '../src/types'
 
 const outcome = (over: Partial<Outcome> = {}): Outcome => ({ narration: 'Something happened.', effects: [], ...over })
@@ -64,5 +65,18 @@ describe('SKIP with a bad age (review finding 12)', () => {
     let s = stepLife(newLife({ name: 'G' }), { type: 'SKIP', toAge: 30 })
     for (const toAge of [Number.NaN, Number.POSITIVE_INFINITY, -5]) s = stepLife(s, { type: 'SKIP', toAge })
     expect(lifeState(s).age).toBe(30)
+  })
+})
+
+describe('OUTCOME with untrustworthy numbers (final review, finding 3)', () => {
+  test('a NaN delta and a NaN age leave a valid, savable life', () => {
+    const s = stepLife(newLife({ name: 'G' }), {
+      type: 'OUTCOME',
+      atAge: Number.NaN,
+      outcome: outcome({ effects: [{ kind: 'stat', stat: 'health', delta: Number.NaN }, { kind: 'stat', stat: 'money', delta: Number.POSITIVE_INFINITY }] }),
+    })
+    expect(lifeState(s).stats).toEqual({ health: 70, happiness: 50, money: 100, notoriety: 0 })
+    expect(lifeState(s).log[0]?.age).toBe(0)
+    expect(() => loadLife(saveLife(s))).not.toThrow()
   })
 })

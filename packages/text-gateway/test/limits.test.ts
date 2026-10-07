@@ -68,3 +68,14 @@ describe('memory stays bounded (review finding 5)', () => {
     expect(budget.size).toBe(1)
   })
 })
+
+describe('peek (final review, finding 1)', () => {
+  test('peek reports whether consume would succeed without spending anything', () => {
+    const budget = createDailyBudget({ maxPerDay: 1 })
+    expect(budget.peek('a')).toBe(true)
+    expect(budget.peek('a')).toBe(true)
+    expect(budget.size).toBe(0)
+    budget.consume('a')
+    expect(budget.peek('a')).toBe(false)
+  })
+})

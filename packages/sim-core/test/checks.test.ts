@@ -157,3 +157,33 @@ describe('deterministic verifier mode (review finding 9)', () => {
     expect(result.judge.safe).toBe(true)
   })
 })
+
+describe('deterministicVerify phrasing (final review, finding 2)', () => {
+  const withText = (text: string) => {
+    const e = makeEvent()
+    e.choices[1]!.outcome.narration = text
+    return e
+  }
+
+  test.each([
+    'The Subject dies.',
+    'You die.',
+    'You are dead.',
+    'The Subject is killed by a goose.',
+    'You were killed by a goose.',
+    'The Subject is now dead.',
+    'The Subject drops dead.',
+    'He passed away quietly.',
+    'He drowned in the fountain.',
+    'She choked to death on a bun.',
+  ])('flags "%s" when no death effect is declared', (text) => {
+    expect(deterministicVerify(withText(text)).ok).toBe(false)
+  })
+
+  test.each(['The Subject killed the mood.', 'The goose kills time.', 'A deadline looms.', 'He is dead serious about the bun.'])(
+    'does not flag the idiom "%s"',
+    (text) => {
+      expect(deterministicVerify(withText(text)).ok).toBe(true)
+    },
+  )
+})

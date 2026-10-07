@@ -62,3 +62,14 @@ describe('buildLabeledSet', () => {
     expect(buildLabeledSet([], createRng(1))).toEqual([])
   })
 })
+
+describe('death-unmentioned targets a choice that can change (final review, finding 5)', () => {
+  test('skips a first choice that already declares a death', () => {
+    const e = base()
+    e.choices[0]!.outcome.effects = [{ kind: 'death', cause: 'Boredom' }]
+    e.choices[1]!.outcome.effects = []
+    const out = injectContradiction(e, 'death-unmentioned')
+    expect(out).not.toEqual(e)
+    expect(out.choices[1]!.outcome.effects).toEqual([{ kind: 'death', cause: 'Unspecified causes' }])
+  })
+})
